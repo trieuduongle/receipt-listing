@@ -1,0 +1,15 @@
+.mobile-menu {
+  .ant-list-header {
+    background: #f2f4f5;
+    padding: 1rem;
+  }
+
+  li {
+    &.ant-list-item {
+      padding: 0;
+    }
+    > * {
+      min-height: 64px;
+    }
+  }
+}
