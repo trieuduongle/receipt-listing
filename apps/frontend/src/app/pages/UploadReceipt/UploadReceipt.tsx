@@ -11,7 +11,7 @@ import { ReceiptForm } from './ReceiptForm';
 
 const breadcrumb: BreadcrumbProps['routes'] = [
   {
-    path: 'home',
+    path: '/home',
     breadcrumbName: 'Home',
   },
   {
@@ -27,7 +27,10 @@ export const UploadReceipt = () => {
     useUploadMediaMutation();
   const [createReceipt, { isLoading: isCreateReceiptLoading }] =
     useCreateReceiptMutation();
-  const isLoading = isGeneratePresignUrlLoading || isUploadMediaLoading;
+  const isLoading =
+    isGeneratePresignUrlLoading ||
+    isUploadMediaLoading ||
+    isCreateReceiptLoading;
   const handleSubmit = async (model: ReceiptFormModel) => {
     // TODO: supo
     const presignUrlRes = await generatePresignUrl({
@@ -41,10 +44,20 @@ export const UploadReceipt = () => {
         file: model.file,
       });
 
-      // if('data' in uploadMediaRes){
-      //   const {data:uploadMediaData} =uploadMediaRes;
-      //   uploadMediaData.
-      // }
+      if ('data' in uploadMediaRes) {
+        const res = await createReceipt({
+          title: model.title,
+          description: model.description,
+          medias: [
+            {
+              fileName: model.file.name,
+              keyName: presignUrlData.keyName,
+            },
+          ],
+        });
+
+        console.log(res);
+      }
     }
     console.log(model);
   };

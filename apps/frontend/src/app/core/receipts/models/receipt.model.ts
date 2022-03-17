@@ -1,5 +1,7 @@
+import { ReceiptMediaModel } from './receipt-media.model';
+
 export interface ReceiptModel {
-  id: string;
-  name: string;
-  src: string;
+  id: number;
+  title: string;
+  media: ReceiptMediaModel[];
 }

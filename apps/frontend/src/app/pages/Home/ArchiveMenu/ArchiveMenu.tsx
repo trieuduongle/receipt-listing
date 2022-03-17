@@ -1,6 +1,7 @@
 import { CodeSandboxOutlined, RightOutlined } from '@ant-design/icons';
 import { Button, List } from 'antd';
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { ReceiptModel } from '~/core';
 import { ReceiptItem } from '../ReceiptItem';
@@ -16,30 +17,30 @@ const StyledCodeSandboxOutlined = styled(CodeSandboxOutlined)`
 `;
 
 interface Item {
-  id: string;
+  id: number;
   node: React.ReactNode;
 }
 
 const receipts: ReceiptModel[] = [
   {
-    id: '1',
-    name: 'Receipt 1',
-    src: 'src 1',
+    id: 1,
+    title: 'Receipt 1',
+    media: [],
   },
   {
-    id: '2',
-    name: 'Receipt 2',
-    src: 'src 2',
+    id: 2,
+    title: 'Receipt 2',
+    media: [],
   },
   {
-    id: '3',
-    name: 'Receipt 3',
-    src: 'src 3',
+    id: 3,
+    title: 'Receipt 3',
+    media: [],
   },
   {
-    id: '4',
-    name: 'Receipt 4',
-    src: 'src 4',
+    id: 4,
+    title: 'Receipt 4',
+    media: [],
   },
 ];
 
@@ -49,17 +50,19 @@ export const ArchiveMenu = () => {
   useEffect(() => {
     setItems([
       {
-        id: 'allReceipts',
+        id: 0,
         node: (
-          <Button
-            className="w-100 text-start"
-            type="text"
-            icon={<StyledCodeSandboxOutlined />}
-            onClick={showAllReceipts}
-          >
-            All Receipts
-            <StyledRightOutlined />
-          </Button>
+          <Link className="w-100" to="/receipts">
+            <Button
+              className="w-100 text-start"
+              type="text"
+              icon={<StyledCodeSandboxOutlined />}
+              onClick={showAllReceipts}
+            >
+              All Receipts
+              <StyledRightOutlined />
+            </Button>
+          </Link>
         ),
       },
       ...receipts.map((item) => ({

@@ -1,7 +1,7 @@
 import { FileOutlined, RightOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
+import { ReactNode } from 'react';
 import styled from 'styled-components';
-import { ReceiptModel } from '~/core';
 
 const StyledRightOutlined = styled(RightOutlined)`
   float: right;
@@ -13,23 +13,21 @@ const StyledFileOutlined = styled(FileOutlined)`
   vertical-align: middle;
 `;
 
-interface ReceiptItemProps {
-  receipt: ReceiptModel;
-  openReceipt: (model: ReceiptModel) => void;
+interface MenuItemProps {
+  title: string;
+  icon?: ReactNode;
+  onClick: () => void;
 }
 
-export const ReceiptItem: React.FC<ReceiptItemProps> = ({
-  receipt,
-  openReceipt,
-}) => {
+export const MenuItem: React.FC<MenuItemProps> = ({ title, icon, onClick }) => {
   return (
     <Button
       className="w-100 text-start"
       type="text"
-      icon={<StyledFileOutlined />}
-      onClick={() => openReceipt(receipt)}
+      icon={icon}
+      onClick={onClick}
     >
-      {receipt.title}
+      {title}
 
       <StyledRightOutlined />
     </Button>

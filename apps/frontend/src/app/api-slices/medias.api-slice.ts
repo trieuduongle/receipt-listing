@@ -1,5 +1,4 @@
 import { GeneratePresignUrlCommand, PresignUrlModel } from '~/core';
-import { extractHttpResponse } from '~/utils';
 import { rootApiSlice } from './root.api-slice';
 
 export const mediasApiSlice = rootApiSlice.injectEndpoints({
@@ -12,8 +11,9 @@ export const mediasApiSlice = rootApiSlice.injectEndpoints({
         url: `/medias/get-presign-url?extension=${body.extension}`,
         method: 'GET',
       }),
-      transformResponse: extractHttpResponse,
     }),
+
+    // consider to move to separate API Slice
     uploadMedia: builder.mutation<void, { url: string; file: File }>({
       query: (body) => {
         const formData = new FormData();
@@ -23,6 +23,7 @@ export const mediasApiSlice = rootApiSlice.injectEndpoints({
           url: body.url,
           method: 'PUT',
           body: formData,
+          headers: { authorization: undefined },
         };
       },
     }),

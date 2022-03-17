@@ -1,7 +1,9 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { environment } from 'src/environments/environment';
 
-const reducerPath = 'api';
+export const RECEIPTS_TAG = 'receipts';
+
+const reducerPath = 'api/receiptCollector';
 /**
  * `1 Base Url` should have `1 API slice` only.
  * Therefore, if you you have many endpoints, you should extends this slice
@@ -15,16 +17,21 @@ export const rootApiSlice = createApi({
   reducerPath,
   baseQuery: fetchBaseQuery({
     baseUrl: environment.apiEndpoint + '/api',
-    prepareHeaders: (headers) => {
+    prepareHeaders: (headers, api) => {
+      // TODO: find better way to ignore headers
+      if (api.endpoint === 'uploadMedia') {
+        return headers;
+      }
+
       // TODO: change this after has sign in/up feature.
-      // const accessToken =
-      //   'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjQ3NDAzNzM4LCJleHAiOjE2NDc0MDczMzh9.1z4ursRf31yHexTg6aWkqDKt7LNI0Ad3TfNU36Ekrcz-jHfT8OO5uedtXBQwnwrd0MjDsoPs3YrKj_SkjMEJSg';
-      // if (accessToken) {
-      //   headers.set('authorization', `Bearer ${accessToken}`);
-      // }
+      const accessToken =
+        'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjQ3NTExMjQ2LCJleHAiOjE2NDc1MTQ4NDZ9.59MuqUBrXF4ybqnDfo0LXs2e1pwmpPRZh1iwsLiy50GL4PkH4Uid-Jh6eBTPQN_QgdMs93AS1-FcmT8N6dvGuA';
+      if (accessToken) {
+        headers.set('authorization', `Bearer ${accessToken}`);
+      }
       return headers;
     },
   }),
   endpoints: () => ({}),
-  tagTypes: [],
+  tagTypes: [RECEIPTS_TAG],
 });

@@ -1,11 +1,13 @@
 import { joiResolver } from '@hookform/resolvers/joi';
 import { Button, Form, FormProps, Input } from 'antd';
 import Joi from 'joi';
+import { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import styled from 'styled-components';
+import { SelectImage } from '~/components';
 import { getErrorMessage } from '~/utils';
-import { ImageTaker } from '../ImageTaker';
 import { ReceiptFormModel } from '../models';
+import { PreviewImage } from '../PreviewImage';
 
 const schema = Joi.object<ReceiptFormModel>({
   title: Joi.string().required().messages({
@@ -41,6 +43,14 @@ const SubmitButton = styled(Button)`
   }
 `;
 
+const StyledSelectImage = styled(SelectImage)`
+  height: 64px;
+
+  > button {
+    min-height: 64px;
+  }
+`;
+
 export const ReceiptForm: React.FC<ReceiptFormProps> = ({ submit }) => {
   const {
     handleSubmit,
@@ -48,11 +58,22 @@ export const ReceiptForm: React.FC<ReceiptFormProps> = ({ submit }) => {
     formState: { errors },
     setValue,
     watch,
+    clearErrors,
   } = useForm<ReceiptFormModel>({
     resolver: joiResolver(schema),
+    defaultValues: {
+      description: new Date().toISOString().substring(0, 13),
+    },
   });
 
-  console.log(errors);
+  const uploadedImage = watch('file');
+
+  useEffect(() => {
+    if (uploadedImage) {
+      setValue('title', uploadedImage.name);
+      clearErrors('title');
+    }
+  }, [uploadedImage, setValue, clearErrors]);
 
   const onFinish = (fieldsValue: ReceiptFormModel) => {
     submit(fieldsValue);
@@ -69,14 +90,23 @@ export const ReceiptForm: React.FC<ReceiptFormProps> = ({ submit }) => {
           name="file"
           control={control}
           render={({ field }) => (
-            <ImageTaker
-              value={field.value}
-              title={field.value ? 'Re-take your receipt' : 'Scan your receipt'}
-              onImageChanged={(file) => field.onChange(file)}
-            />
+            <>
+              <StyledSelectImage
+                title={
+                  field.value ? 'Re-take your receipt' : 'Scan your receipt'
+                }
+                hasBorder
+                onImageChanged={(file) => field.onChange(file)}
+              />
+              <PreviewImage
+                value={field.value}
+                onRemove={() => field.onChange()}
+              />
+            </>
           )}
         />
       </Form.Item>
+
       <Form.Item
         required
         label="Title"
@@ -86,7 +116,9 @@ export const ReceiptForm: React.FC<ReceiptFormProps> = ({ submit }) => {
         <Controller
           name="title"
           control={control}
-          render={({ field }) => <Input onChange={field.onChange} />}
+          render={({ field }) => (
+            <Input value={field.value} onChange={field.onChange} />
+          )}
         />
       </Form.Item>
       <Form.Item
@@ -98,7 +130,9 @@ export const ReceiptForm: React.FC<ReceiptFormProps> = ({ submit }) => {
         <Controller
           name="description"
           control={control}
-          render={({ field }) => <Input onChange={field.onChange} />}
+          render={({ field }) => (
+            <Input value={field.value} onChange={field.onChange} />
+          )}
         />
       </Form.Item>
 
