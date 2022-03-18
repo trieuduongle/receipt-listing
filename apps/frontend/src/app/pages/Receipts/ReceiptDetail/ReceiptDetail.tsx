@@ -1,14 +1,13 @@
-import { FileOutlined } from '@ant-design/icons';
 import { skipToken } from '@reduxjs/toolkit/dist/query';
-import { BreadcrumbProps, Spin } from 'antd';
+import { BreadcrumbProps, Form, Image, Input, Spin } from 'antd';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import {
   useGetReceiptDetailQuery,
   useGetReceiptMediaDetailsQuery,
 } from '~/api-slices';
-import { PageContent, PageHeader } from '~/components';
-import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE } from '~/core';
+import { Centering, PageContent, PageHeader } from '~/components';
+import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE, FALLBACK_IMAGE_SRC } from '~/core';
 
 const breadcrumb: BreadcrumbProps['routes'] = [
   {
@@ -25,9 +24,13 @@ const breadcrumb: BreadcrumbProps['routes'] = [
   },
 ];
 
-const StyledFileOutlined = styled(FileOutlined)`
-  font-size: 20px;
-  vertical-align: middle;
+const Wrapper = styled.div`
+  width: 80vw;
+  margin: 0 auto;
+
+  @media (max-width: 576px) {
+    width: 100%;
+  }
 `;
 
 export const ReceiptDetail = () => {
@@ -48,8 +51,22 @@ export const ReceiptDetail = () => {
       <PageHeader title="Receipt Detail" routes={breadcrumb}></PageHeader>
 
       <PageContent>
-        <Spin spinning={isLoading}>{JSON.stringify(receipt)}</Spin>
-        <Spin spinning={isLoading}>{JSON.stringify(medias)}</Spin>
+        <Wrapper>
+          <Spin spinning={isLoading}>
+            <Centering>
+              <Image
+                src={medias?.content[0].url}
+                fallback={FALLBACK_IMAGE_SRC}
+              />
+            </Centering>
+
+            <Form layout="vertical" className="mt-3">
+              <Form.Item label="Title">
+                <Input value={receipt?.title} disabled />
+              </Form.Item>
+            </Form>
+          </Spin>
+        </Wrapper>
       </PageContent>
     </>
   );
