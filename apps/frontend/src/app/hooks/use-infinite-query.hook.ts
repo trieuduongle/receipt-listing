@@ -57,7 +57,7 @@ export function useInfiniteQuery<
     data: pages,
     isLoading: result.isFetching && pages === undefined,
     hasNextPage: nextPage.current !== undefined,
-    total: total + options.getActualCurrentPageSize(result.data),
+    total,
     fetchNextPage() {
       if (nextPage.current !== undefined) {
         fetchData(nextPage.current);
