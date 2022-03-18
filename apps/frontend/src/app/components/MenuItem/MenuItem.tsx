@@ -1,4 +1,4 @@
-import { FileOutlined, RightOutlined } from '@ant-design/icons';
+import { RightOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
 import { ReactNode } from 'react';
 import styled from 'styled-components';
@@ -8,9 +8,8 @@ const StyledRightOutlined = styled(RightOutlined)`
   font-size: 20px;
 `;
 
-const StyledFileOutlined = styled(FileOutlined)`
-  font-size: 20px;
-  vertical-align: middle;
+const StyledButton = styled(Button)`
+  min-height: inherit;
 `;
 
 interface MenuItemProps {
@@ -21,7 +20,7 @@ interface MenuItemProps {
 
 export const MenuItem: React.FC<MenuItemProps> = ({ title, icon, onClick }) => {
   return (
-    <Button
+    <StyledButton
       className="w-100 text-start"
       type="text"
       icon={icon}
@@ -30,6 +29,6 @@ export const MenuItem: React.FC<MenuItemProps> = ({ title, icon, onClick }) => {
       {title}
 
       <StyledRightOutlined />
-    </Button>
+    </StyledButton>
   );
 };

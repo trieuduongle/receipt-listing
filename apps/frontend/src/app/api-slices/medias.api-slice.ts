@@ -16,14 +16,10 @@ export const mediasApiSlice = rootApiSlice.injectEndpoints({
     // consider to move to separate API Slice
     uploadMedia: builder.mutation<void, { url: string; file: File }>({
       query: (body) => {
-        const formData = new FormData();
-        formData.append('file', body.file);
-        formData.append('type', body.file.type);
         return {
           url: body.url,
           method: 'PUT',
-          body: formData,
-          headers: { authorization: undefined },
+          body: body.file,
         };
       },
     }),

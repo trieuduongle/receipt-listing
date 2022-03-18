@@ -1,4 +1,5 @@
 import { HttpResponse } from '~/core';
+import { isNullOrUndefined } from './value.util';
 
 const serializeValue = (value: any) => {
   if (value instanceof Date) {
@@ -25,7 +26,7 @@ export const buildParams = (
       value
     )}`;
 
-    if (!allowEmptyParamValue && !value) {
+    if (!allowEmptyParamValue && isNullOrUndefined(value)) {
       return paramsString;
     }
 

@@ -3,7 +3,7 @@ import { environment } from 'src/environments/environment';
 
 export const RECEIPTS_TAG = 'receipts';
 
-const reducerPath = 'api/receiptCollector';
+const reducerPath = 'api';
 /**
  * `1 Base Url` should have `1 API slice` only.
  * Therefore, if you you have many endpoints, you should extends this slice
@@ -25,7 +25,7 @@ export const rootApiSlice = createApi({
 
       // TODO: change this after has sign in/up feature.
       const accessToken =
-        'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjQ3NTExMjQ2LCJleHAiOjE2NDc1MTQ4NDZ9.59MuqUBrXF4ybqnDfo0LXs2e1pwmpPRZh1iwsLiy50GL4PkH4Uid-Jh6eBTPQN_QgdMs93AS1-FcmT8N6dvGuA';
+        'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjQ3NTY5MTY2LCJleHAiOjE2NDc1NzI3NjZ9.H5uCBArt7beGlcZh6gl3cfdZME5wf2J_tFKHPozV2TjzwXJKwH0iHjDtqvLX0hOYhqjvVsIg9fwUlrIOoHZ1Gg';
       if (accessToken) {
         headers.set('authorization', `Bearer ${accessToken}`);
       }

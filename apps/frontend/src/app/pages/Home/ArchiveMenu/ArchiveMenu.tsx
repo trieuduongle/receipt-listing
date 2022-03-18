@@ -16,6 +16,10 @@ const StyledCodeSandboxOutlined = styled(CodeSandboxOutlined)`
   vertical-align: middle;
 `;
 
+const StyledButton = styled(Button)`
+  min-height: inherit;
+`;
+
 interface Item {
   id: number;
   node: React.ReactNode;
@@ -53,7 +57,7 @@ export const ArchiveMenu = () => {
         id: 0,
         node: (
           <Link className="w-100" to="/receipts">
-            <Button
+            <StyledButton
               className="w-100 text-start"
               type="text"
               icon={<StyledCodeSandboxOutlined />}
@@ -61,7 +65,7 @@ export const ArchiveMenu = () => {
             >
               All Receipts
               <StyledRightOutlined />
-            </Button>
+            </StyledButton>
           </Link>
         ),
       },
