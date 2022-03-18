@@ -1,6 +1,6 @@
 import { FileOutlined } from '@ant-design/icons';
 import { BreadcrumbProps, ConfigProvider, Divider, List } from 'antd';
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
@@ -47,10 +47,6 @@ export const Receipts = () => {
 
     result.fetchNextPage();
   }, [result]);
-
-  useEffect(() => {
-    console.log(result.total);
-  }, [result.total]);
 
   return (
     <>

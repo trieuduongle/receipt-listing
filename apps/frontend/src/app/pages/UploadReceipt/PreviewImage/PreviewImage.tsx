@@ -42,10 +42,6 @@ export const PreviewImage: React.FC<PreviewImageProps> = ({
   const [dataUrl, setDataUrl] = useState('');
 
   useEffect(() => {
-    console.log(dataUrl);
-  }, [dataUrl]);
-
-  useEffect(() => {
     if (!value) {
       setDataUrl('');
       return;
@@ -54,7 +50,6 @@ export const PreviewImage: React.FC<PreviewImageProps> = ({
 
     reader.onloadend = function (e) {
       setDataUrl((e.target?.result as string) || '');
-      console.log(new Date().getTime());
     };
     reader.readAsDataURL(value);
   }, [value]);

@@ -53,10 +53,6 @@ export const ImageTaker: React.FC<ImageTakerProps> = ({
   const [dataUrl, setDataUrl] = useState('');
 
   useEffect(() => {
-    console.log(dataUrl);
-  }, [dataUrl]);
-
-  useEffect(() => {
     if (!value) {
       setDataUrl('');
       return;
@@ -65,7 +61,6 @@ export const ImageTaker: React.FC<ImageTakerProps> = ({
 
     reader.onloadend = function (e) {
       setDataUrl((e.target?.result as string) || '');
-      console.log(new Date().getTime());
     };
     reader.readAsDataURL(value);
   }, [value]);

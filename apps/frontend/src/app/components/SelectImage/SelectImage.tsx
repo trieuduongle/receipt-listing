@@ -42,8 +42,6 @@ export const SelectImage: React.FC<SelectImageProps> = ({
     }
     const file = fileElementRef.current.files?.[0];
 
-    console.log(file);
-
     if (file) {
       onImageChanged(file);
     }
