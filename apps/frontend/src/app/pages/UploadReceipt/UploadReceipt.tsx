@@ -1,4 +1,4 @@
-import { BreadcrumbProps, Spin } from 'antd';
+import { BreadcrumbProps, notification, Spin } from 'antd';
 import {
   useCreateReceiptMutation,
   useGeneratePresignUrlMutation,
@@ -56,10 +56,13 @@ export const UploadReceipt = () => {
           ],
         });
 
-        console.log(res);
+        if ('data' in res) {
+          notification.success({
+            message: 'Congrats! Your receipt was uploaded',
+          });
+        }
       }
     }
-    console.log(model);
   };
 
   return (
