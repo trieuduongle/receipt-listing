@@ -11,7 +11,7 @@ import { ListReceiptsSkeleton } from './ListReceiptsSkeleton';
 
 const breadcrumb: BreadcrumbProps['routes'] = [
   {
-    path: '/home',
+    path: '/main',
     breadcrumbName: 'Home',
   },
   {
@@ -73,7 +73,7 @@ export const Receipts = () => {
                       <MenuItem
                         title={item.title}
                         icon={<StyledFileOutlined />}
-                        onClick={() => navigate(`/receipts/${item.id}`)}
+                        onClick={() => navigate(`/main/receipts/${item.id}`)}
                       />
                     </List.Item>
                   ))

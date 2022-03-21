@@ -1,7 +1,9 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { environment } from 'src/environments/environment';
+import { AuthService } from '~/core';
 
 export const RECEIPTS_TAG = 'receipts';
+export const RENEW_AFTER_LOGIN = 'renewAfterLogin';
 
 const reducerPath = 'api';
 /**
@@ -23,9 +25,7 @@ export const rootApiSlice = createApi({
         return headers;
       }
 
-      // TODO: change this after has sign in/up feature.
-      const accessToken =
-        'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjQ3NTY5MTY2LCJleHAiOjE2NDc1NzI3NjZ9.H5uCBArt7beGlcZh6gl3cfdZME5wf2J_tFKHPozV2TjzwXJKwH0iHjDtqvLX0hOYhqjvVsIg9fwUlrIOoHZ1Gg';
+      const accessToken = AuthService.getToken();
       if (accessToken) {
         headers.set('authorization', `Bearer ${accessToken}`);
       }
@@ -33,5 +33,5 @@ export const rootApiSlice = createApi({
     },
   }),
   endpoints: () => ({}),
-  tagTypes: [RECEIPTS_TAG],
+  tagTypes: [RECEIPTS_TAG, RENEW_AFTER_LOGIN],
 });

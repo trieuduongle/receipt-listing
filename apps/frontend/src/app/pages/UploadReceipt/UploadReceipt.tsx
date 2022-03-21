@@ -11,7 +11,7 @@ import { ReceiptForm } from './ReceiptForm';
 
 const breadcrumb: BreadcrumbProps['routes'] = [
   {
-    path: '/home',
+    path: '/main',
     breadcrumbName: 'Home',
   },
   {

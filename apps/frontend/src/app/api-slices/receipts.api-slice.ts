@@ -7,7 +7,11 @@ import {
   ReceiptModel,
 } from '~/core';
 import { buildParams } from '~/utils';
-import { RECEIPTS_TAG, rootApiSlice } from './root.api-slice';
+import {
+  RECEIPTS_TAG,
+  RENEW_AFTER_LOGIN,
+  rootApiSlice,
+} from './root.api-slice';
 
 type ReceiptMediaDetailsQuery = PaginationQuery<{ receiptId: number }>;
 
@@ -18,7 +22,7 @@ export const receiptsApiSlice = rootApiSlice.injectEndpoints({
         console.log(`/receipts${buildParams(query)}`);
         return `/receipts${buildParams(query)}`;
       },
-      providesTags: [RECEIPTS_TAG],
+      providesTags: [RECEIPTS_TAG, RENEW_AFTER_LOGIN],
     }),
     createReceipt: builder.mutation<void, CreateReceiptCommand>({
       query: (body) => ({
@@ -48,6 +52,7 @@ export const receiptsApiSlice = rootApiSlice.injectEndpoints({
 
         return receipt;
       },
+      providesTags: [RENEW_AFTER_LOGIN],
     }),
     getReceiptMediaDetails: builder.query<
       PaginatedList<ReceiptMediaDetailModel>,
@@ -55,6 +60,7 @@ export const receiptsApiSlice = rootApiSlice.injectEndpoints({
     >({
       query: ({ receiptId, ...query }) =>
         `/receipts/${receiptId}/medias${buildParams(query)}`,
+      providesTags: [RENEW_AFTER_LOGIN],
     }),
   }),
 });

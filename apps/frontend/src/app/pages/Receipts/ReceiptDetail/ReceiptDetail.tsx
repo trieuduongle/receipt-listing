@@ -11,11 +11,11 @@ import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE, FALLBACK_IMAGE_SRC } from '~/core';
 
 const breadcrumb: BreadcrumbProps['routes'] = [
   {
-    path: '/home',
+    path: '/main',
     breadcrumbName: 'Home',
   },
   {
-    path: '/receipts',
+    path: '/main/receipts',
     breadcrumbName: 'Receipts',
   },
   {

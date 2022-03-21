@@ -56,7 +56,7 @@ export const ArchiveMenu = () => {
       {
         id: 0,
         node: (
-          <Link className="w-100" to="/receipts">
+          <Link className="w-100" to="/main/receipts">
             <StyledButton
               className="w-100 text-start"
               type="text"
