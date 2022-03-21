@@ -22,6 +22,7 @@ const schema = Joi.object<ReceiptFormModel>({
 });
 
 export interface ReceiptFormProps {
+  refresh: number;
   submit: (model: ReceiptFormModel) => void;
 }
 
@@ -51,7 +52,10 @@ const StyledSelectImage = styled(SelectImage)`
   }
 `;
 
-export const ReceiptForm: React.FC<ReceiptFormProps> = ({ submit }) => {
+export const ReceiptForm: React.FC<ReceiptFormProps> = ({
+  refresh,
+  submit,
+}) => {
   const {
     handleSubmit,
     control,
@@ -59,6 +63,7 @@ export const ReceiptForm: React.FC<ReceiptFormProps> = ({ submit }) => {
     setValue,
     watch,
     clearErrors,
+    reset,
   } = useForm<ReceiptFormModel>({
     resolver: joiResolver(schema),
     defaultValues: {
@@ -74,6 +79,12 @@ export const ReceiptForm: React.FC<ReceiptFormProps> = ({ submit }) => {
       clearErrors('title');
     }
   }, [uploadedImage, setValue, clearErrors]);
+
+  useEffect(() => {
+    if (refresh) {
+      reset();
+    }
+  }, [refresh, reset]);
 
   const onFinish = (fieldsValue: ReceiptFormModel) => {
     submit(fieldsValue);

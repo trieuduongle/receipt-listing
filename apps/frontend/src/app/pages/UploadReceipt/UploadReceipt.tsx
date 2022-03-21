@@ -1,4 +1,5 @@
 import { BreadcrumbProps, notification, Spin } from 'antd';
+import { useState } from 'react';
 import {
   useCreateReceiptMutation,
   useGeneratePresignUrlMutation,
@@ -31,6 +32,9 @@ export const UploadReceipt = () => {
     isGeneratePresignUrlLoading ||
     isUploadMediaLoading ||
     isCreateReceiptLoading;
+
+  const [refresh, setRefresh] = useState(1);
+
   const handleSubmit = async (model: ReceiptFormModel) => {
     // TODO: supo
     const presignUrlRes = await generatePresignUrl({
@@ -60,6 +64,8 @@ export const UploadReceipt = () => {
           notification.success({
             message: 'Congrats! Your receipt was uploaded',
           });
+
+          setRefresh((value) => value + 1);
         }
       }
     }
@@ -71,7 +77,7 @@ export const UploadReceipt = () => {
 
       <PageContent>
         <Spin spinning={isLoading}>
-          <ReceiptForm submit={handleSubmit} />
+          <ReceiptForm refresh={refresh} submit={handleSubmit} />
         </Spin>
       </PageContent>
     </>
