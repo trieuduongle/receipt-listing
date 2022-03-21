@@ -1,10 +1,16 @@
-import { CodeSandboxOutlined, RightOutlined } from '@ant-design/icons';
+import {
+  CodeSandboxOutlined,
+  FileImageOutlined,
+  RightOutlined,
+} from '@ant-design/icons';
 import { Button, List } from 'antd';
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { ReceiptModel } from '~/core';
-import { ReceiptItem } from '../ReceiptItem';
+import { useGetReceiptsQuery } from '~/api-slices';
+import { MenuItem } from '~/components';
+import { ListReceiptsSkeleton } from '~/containers';
+import { DEFAULT_PAGE } from '~/core';
 
 const StyledRightOutlined = styled(RightOutlined)`
   float: right;
@@ -20,39 +26,27 @@ const StyledButton = styled(Button)`
   min-height: inherit;
 `;
 
+const StyledFileImageOutlined = styled(FileImageOutlined)`
+  font-size: 20px;
+  vertical-align: middle;
+`;
+
 interface Item {
   id: number;
   node: React.ReactNode;
 }
 
-const receipts: ReceiptModel[] = [
-  {
-    id: 1,
-    title: 'Receipt 1',
-    media: [],
-  },
-  {
-    id: 2,
-    title: 'Receipt 2',
-    media: [],
-  },
-  {
-    id: 3,
-    title: 'Receipt 3',
-    media: [],
-  },
-  {
-    id: 4,
-    title: 'Receipt 4',
-    media: [],
-  },
-];
-
 export const ArchiveMenu = () => {
   const [items, setItems] = useState<Item[]>([]);
+  const { data: receipts, isFetching: areReceiptsFetching } =
+    useGetReceiptsQuery({
+      page: DEFAULT_PAGE,
+      size: 3,
+    });
+  const navigate = useNavigate();
 
   useEffect(() => {
-    setItems([
+    const results: Item[] = [
       {
         id: 0,
         node: (
@@ -69,12 +63,34 @@ export const ArchiveMenu = () => {
           </Link>
         ),
       },
-      ...receipts.map((item) => ({
-        id: item.id,
-        node: <ReceiptItem receipt={item} openReceipt={handleOpenReceipt} />,
-      })),
-    ]);
-  }, []);
+    ];
+
+    if (areReceiptsFetching) {
+      results.push({
+        id: -1,
+        node: (
+          <div className="w-100">
+            <ListReceiptsSkeleton />
+          </div>
+        ),
+      });
+    } else {
+      results.push(
+        ...(receipts?.content || []).map((item) => ({
+          id: item.id,
+          node: (
+            <MenuItem
+              title={item.title}
+              icon={<StyledFileImageOutlined />}
+              onClick={() => navigate(`/main/receipts/${item.id}`)}
+            />
+          ),
+        }))
+      );
+    }
+
+    setItems(results);
+  }, [receipts, areReceiptsFetching, navigate]);
 
   const showAllReceipts = () => {
     console.log('called', new Date().getTime());

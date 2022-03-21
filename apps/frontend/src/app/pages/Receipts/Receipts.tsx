@@ -6,8 +6,8 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { receiptsApiSlice } from '~/api-slices';
 import { MenuItem, PageContent, PageHeader } from '~/components';
+import { ListReceiptsSkeleton } from '~/containers';
 import { useInfiniteQuery } from '~/hooks';
-import { ListReceiptsSkeleton } from './ListReceiptsSkeleton';
 
 const breadcrumb: BreadcrumbProps['routes'] = [
   {
