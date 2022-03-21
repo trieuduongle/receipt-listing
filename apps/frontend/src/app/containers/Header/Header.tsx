@@ -14,6 +14,7 @@ const Flex = styled.div`
   justify-content: end;
   align-items: center;
   height: 100%;
+  float: right;
 `;
 
 const StyledAntdHeader = styled(AntdHeader)`
