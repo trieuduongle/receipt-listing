@@ -6,7 +6,7 @@
     "build": {
       "executor": "@nrwl/web:webpack",
       "outputs": ["{options.outputPath}"],
-      "defaultConfiguration": "development",
+      "defaultConfiguration": "production",
       "options": {
         "compiler": "babel",
         "outputPath": "dist/apps/frontend",
