@@ -18,7 +18,12 @@ interface MenuItemProps {
   onClick: () => void;
 }
 
-export const MenuItem: React.FC<MenuItemProps> = ({ title, icon, onClick }) => {
+export const MenuItem: React.FC<MenuItemProps> = ({
+  title,
+  icon,
+  onClick,
+  children,
+}) => {
   return (
     <StyledButton
       className="w-100 text-start"
@@ -26,6 +31,7 @@ export const MenuItem: React.FC<MenuItemProps> = ({ title, icon, onClick }) => {
       icon={icon}
       onClick={onClick}
     >
+      {children}
       {title}
 
       <StyledRightOutlined />

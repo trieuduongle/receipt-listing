@@ -1,12 +1,11 @@
-import { FileOutlined } from '@ant-design/icons';
 import { BreadcrumbProps, ConfigProvider, Divider, List } from 'antd';
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { receiptsApiSlice } from '~/api-slices';
-import { MenuItem, PageContent, PageHeader } from '~/components';
-import { ListReceiptsSkeleton } from '~/containers';
+import { PageContent, PageHeader } from '~/components';
+import { ListReceiptsSkeleton, ReceiptMenuItem } from '~/containers';
 import { useInfiniteQuery } from '~/hooks';
 
 const breadcrumb: BreadcrumbProps['routes'] = [
@@ -19,11 +18,6 @@ const breadcrumb: BreadcrumbProps['routes'] = [
     breadcrumbName: 'Receipts',
   },
 ];
-
-const StyledFileOutlined = styled(FileOutlined)`
-  font-size: 20px;
-  vertical-align: middle;
-`;
 
 const Wrapper = styled.div`
   height: calc(100vh - 170px);
@@ -70,9 +64,8 @@ export const Receipts = () => {
                 renderItem={(paginatedList) =>
                   paginatedList.content.map((item) => (
                     <List.Item key={item.id}>
-                      <MenuItem
-                        title={item.title}
-                        icon={<StyledFileOutlined />}
+                      <ReceiptMenuItem
+                        item={item}
                         onClick={() => navigate(`/main/receipts/${item.id}`)}
                       />
                     </List.Item>

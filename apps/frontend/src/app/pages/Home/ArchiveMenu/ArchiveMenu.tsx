@@ -1,15 +1,10 @@
-import {
-  CodeSandboxOutlined,
-  FileImageOutlined,
-  RightOutlined,
-} from '@ant-design/icons';
+import { CodeSandboxOutlined, RightOutlined } from '@ant-design/icons';
 import { Button, List } from 'antd';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { useGetReceiptsQuery } from '~/api-slices';
-import { MenuItem } from '~/components';
-import { ListReceiptsSkeleton } from '~/containers';
+import { ListReceiptsSkeleton, ReceiptMenuItem } from '~/containers';
 import { DEFAULT_PAGE } from '~/core';
 
 const StyledRightOutlined = styled(RightOutlined)`
@@ -24,11 +19,6 @@ const StyledCodeSandboxOutlined = styled(CodeSandboxOutlined)`
 
 const StyledButton = styled(Button)`
   min-height: inherit;
-`;
-
-const StyledFileImageOutlined = styled(FileImageOutlined)`
-  font-size: 20px;
-  vertical-align: middle;
 `;
 
 interface Item {
@@ -79,9 +69,8 @@ export const ArchiveMenu = () => {
         ...(receipts?.content || []).map((item) => ({
           id: item.id,
           node: (
-            <MenuItem
-              title={item.title}
-              icon={<StyledFileImageOutlined />}
+            <ReceiptMenuItem
+              item={item}
               onClick={() => navigate(`/main/receipts/${item.id}`)}
             />
           ),
@@ -94,10 +83,6 @@ export const ArchiveMenu = () => {
 
   const showAllReceipts = () => {
     console.log('called', new Date().getTime());
-  };
-
-  const handleOpenReceipt = () => {
-    console.log('open receipt');
   };
 
   return (
