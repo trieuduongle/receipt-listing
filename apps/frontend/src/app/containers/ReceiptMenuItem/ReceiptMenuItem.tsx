@@ -3,9 +3,10 @@ import { MenuItem } from '~/components';
 import { ReceiptModel } from '~/core';
 
 const StyledImageIcon = styled.img`
-  width: 20px;
-  height: 20px;
+  width: 50px;
+  height: 50px;
   margin-right: 0.5rem;
+  object-fit: cover;
 `;
 
 export interface ReceiptMenuItemProps {

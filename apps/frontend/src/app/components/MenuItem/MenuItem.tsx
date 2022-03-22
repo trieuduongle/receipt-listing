@@ -10,6 +10,10 @@ const StyledRightOutlined = styled(RightOutlined)`
 
 const StyledButton = styled(Button)`
   min-height: inherit;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 interface MenuItemProps {
