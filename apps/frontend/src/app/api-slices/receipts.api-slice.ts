@@ -1,6 +1,5 @@
 import {
   CreateReceiptCommand,
-  DEFAULT_PAGE_SIZE,
   PaginatedList,
   PaginationQuery,
   ReceiptMediaDetailModel,
@@ -30,25 +29,8 @@ export const receiptsApiSlice = rootApiSlice.injectEndpoints({
       invalidatesTags: [RECEIPTS_TAG],
     }),
 
-    // TODO: enhance this with actual get by id.
     getReceiptDetail: builder.query<ReceiptModel, number>({
-      query: () => {
-        const query: PaginationQuery = { page: 0, size: DEFAULT_PAGE_SIZE };
-
-        return `/receipts${buildParams(query)}`;
-      },
-      transformResponse: (
-        rawResult: PaginatedList<ReceiptModel>,
-        _meta,
-        id
-      ) => {
-        const receipt = rawResult.content.find((item) => item.id === id);
-        if (!receipt) {
-          throw new Error(`Not found receipt ${id}`);
-        }
-
-        return receipt;
-      },
+      query: (id) => `/receipts/${id}`,
       providesTags: [RENEW_AFTER_LOGIN],
     }),
     getReceiptMediaDetails: builder.query<
