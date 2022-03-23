@@ -18,10 +18,7 @@ type ReceiptMediaDetailsQuery = PaginationQuery<{ receiptId: number }>;
 export const receiptsApiSlice = rootApiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getReceipts: builder.query<PaginatedList<ReceiptModel>, PaginationQuery>({
-      query: (query) => {
-        console.log(`/receipts${buildParams(query)}`);
-        return `/receipts${buildParams(query)}`;
-      },
+      query: (query) => `/receipts${buildParams(query)}`,
       providesTags: [RECEIPTS_TAG, RENEW_AFTER_LOGIN],
     }),
     createReceipt: builder.mutation<void, CreateReceiptCommand>({

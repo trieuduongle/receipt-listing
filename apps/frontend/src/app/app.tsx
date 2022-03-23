@@ -9,7 +9,14 @@ import {
 import styled from 'styled-components';
 import { Header } from './containers';
 import { AuthGuard } from './guards';
-import { Home, Login, ReceiptsRoutes, Register, UploadReceipt } from './pages';
+import {
+  Home,
+  Login,
+  Profile,
+  ReceiptsRoutes,
+  Register,
+  UploadReceipt,
+} from './pages';
 import { store } from './store/store';
 
 const StyledApp = styled.div`
@@ -38,6 +45,7 @@ export function App() {
                         element={<UploadReceipt />}
                       />
                       <Route path="receipts/*" element={<ReceiptsRoutes />} />
+                      <Route path="profile" element={<Profile />} />
                       <Route path="*" element={<Navigate to="home" />} />
                     </Routes>
                   </Layout>

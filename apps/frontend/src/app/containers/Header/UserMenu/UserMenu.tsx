@@ -1,9 +1,10 @@
-import { CaretDownOutlined } from '@ant-design/icons';
 import { Button, Dropdown, Menu } from 'antd';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { AuthService } from '~/core';
-import { useAppDispatch, useAuth } from '~/hooks';
+import { useGetReceiptsQuery } from '~/api-slices';
+import { AuthService, DEFAULT_PAGE } from '~/core';
+import { useAuth } from '~/hooks';
+import { ScoreBadge } from '../ScoreBadge';
 
 const Content = styled.div`
   &:hover {
@@ -11,18 +12,24 @@ const Content = styled.div`
   }
 `;
 
+const WelcomeUser = styled.span`
+  margin-top: 0.5rem;
+`;
+
 interface UserMenuProps {
   hideName?: boolean;
 }
 
 export const UserMenu: React.FC<UserMenuProps> = ({ hideName }) => {
-  // TODO: update header items
-  const dispatch = useAppDispatch();
   const auth = useAuth();
   const navigate = useNavigate();
 
+  const { data: receipts } = useGetReceiptsQuery({
+    page: DEFAULT_PAGE,
+    size: 3,
+  });
+
   const handleLogout = () => {
-    // dispatch(logout());
     AuthService.clearToken();
     navigate('/login');
   };
@@ -31,6 +38,11 @@ export const UserMenu: React.FC<UserMenuProps> = ({ hideName }) => {
     <Dropdown
       overlay={
         <Menu>
+          <Menu.Item key="profile">
+            <Link to="profile">
+              <Button type="link">Profile</Button>
+            </Link>
+          </Menu.Item>
           <Menu.Item key="logout">
             <Button type="link" onClick={handleLogout}>
               Logout
@@ -42,12 +54,13 @@ export const UserMenu: React.FC<UserMenuProps> = ({ hideName }) => {
       trigger={['click']}
     >
       <Content>
-        {auth.profile ? (
-          <>
-            Hello, {auth.profile?.firstName} {auth.profile?.lastName}
-          </>
-        ) : null}
-        <CaretDownOutlined className="ms-2 me-2" />
+        <ScoreBadge count={receipts?.totalElements}>
+          {auth.profile ? (
+            <WelcomeUser>
+              Hello, {auth.profile?.firstName} {auth.profile?.lastName}
+            </WelcomeUser>
+          ) : null}
+        </ScoreBadge>
       </Content>
     </Dropdown>
   );

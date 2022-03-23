@@ -81,7 +81,6 @@ export const Login = () => {
   }, [error]);
 
   const onFinish = async (values: LoginCommand) => {
-    console.log('Success:', values);
     const res = await login(values);
     if ('data' in res) {
       AuthService.saveToken(res.data.accessToken);

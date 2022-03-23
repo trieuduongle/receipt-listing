@@ -7,6 +7,7 @@ const StyledImageIcon = styled.img`
   height: 50px;
   margin-right: 0.5rem;
   object-fit: cover;
+  border-radius: 20%;
 `;
 
 export interface ReceiptMenuItemProps {
