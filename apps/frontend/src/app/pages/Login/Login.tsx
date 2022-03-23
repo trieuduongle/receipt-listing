@@ -1,7 +1,7 @@
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { Button, Card, Form, FormProps, Input } from 'antd';
+import { Button, Card, Form, FormProps, Input, notification } from 'antd';
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import {
   RENEW_AFTER_LOGIN,
@@ -49,11 +49,16 @@ const StyledButton = styled(Button)`
   display: block;
 `;
 
+const Register = styled.div`
+  margin-top: 0.5rem;
+  text-align: center;
+`;
+
 export const Login = () => {
   const auth = useAuth();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const [login, { isLoading: isLoggingLoading }] = useLoginMutation();
+  const [login, { isLoading: isLoggingLoading, error }] = useLoginMutation();
 
   const isLoading = auth.isFetching || isLoggingLoading;
 
@@ -66,6 +71,14 @@ export const Login = () => {
   useEffect(() => {
     dispatch(rootApiSlice.util.invalidateTags([RENEW_AFTER_LOGIN]));
   }, [dispatch]);
+
+  useEffect(() => {
+    if (error && 'data' in error && error.status === 401) {
+      notification.error({
+        message: 'Your login info incorrect. Please check it again',
+      });
+    }
+  }, [error]);
 
   const onFinish = async (values: LoginCommand) => {
     console.log('Success:', values);
@@ -119,6 +132,10 @@ export const Login = () => {
             >
               Log in
             </StyledButton>
+            <Register>
+              Or
+              <Link to="/register"> register now!</Link>
+            </Register>
           </Form.Item>
         </StyledForm>
       </StyledCard>

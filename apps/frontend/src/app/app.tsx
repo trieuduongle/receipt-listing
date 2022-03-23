@@ -9,7 +9,7 @@ import {
 import styled from 'styled-components';
 import { Header } from './containers';
 import { AuthGuard } from './guards';
-import { Home, Login, ReceiptsRoutes, UploadReceipt } from './pages';
+import { Home, Login, ReceiptsRoutes, Register, UploadReceipt } from './pages';
 import { store } from './store/store';
 
 const StyledApp = styled.div`
@@ -23,6 +23,7 @@ export function App() {
         <Router>
           <Routes>
             <Route path="login" element={<Login />} />
+            <Route path="register" element={<Register />} />
 
             <Route element={<AuthGuard />}>
               <Route

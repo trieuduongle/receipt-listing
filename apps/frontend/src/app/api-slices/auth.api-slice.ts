@@ -1,4 +1,9 @@
-import { LoginCommand, LoginResponseModel, UserProfileModel } from '~/core';
+import {
+  LoginCommand,
+  LoginResponseModel,
+  RegisterCommand,
+  UserProfileModel,
+} from '~/core';
 import { RENEW_AFTER_LOGIN, rootApiSlice } from './root.api-slice';
 
 export const authApiSlice = rootApiSlice.injectEndpoints({
@@ -10,7 +15,11 @@ export const authApiSlice = rootApiSlice.injectEndpoints({
     login: builder.mutation<LoginResponseModel, LoginCommand>({
       query: (body) => ({ url: '/auth/signin', method: 'POST', body }),
     }),
+    register: builder.mutation<LoginResponseModel, RegisterCommand>({
+      query: (body) => ({ url: '/auth/signup', method: 'POST', body }),
+    }),
   }),
 });
 
-export const { useGetMyProfileQuery, useLoginMutation } = authApiSlice;
+export const { useGetMyProfileQuery, useLoginMutation, useRegisterMutation } =
+  authApiSlice;

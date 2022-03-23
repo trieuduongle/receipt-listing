@@ -3,5 +3,5 @@
   "editor.codeActionsOnSave": {
     "source.organizeImports": true
   },
-  "cSpell.words": ["antd", "presign", "reduxjs"]
+  "cSpell.words": ["antd", "presign", "reduxjs", "signin"]
 }
