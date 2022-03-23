@@ -12,18 +12,18 @@ import { AuthService, LoginCommand } from '~/core';
 import { useAppDispatch, useAuth } from '~/hooks';
 
 const Wrapper = styled.div`
-  position: relative;
-  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
   background-color: #e8eef3;
 `;
 
 const StyledCard = styled(Card)`
   width: 100%;
   max-width: 578px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
 `;
 
 const CardTitle = styled.div`

@@ -12,13 +12,15 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
   background-color: #e8eef3;
 `;
 
 const StyledCard = styled(Card)`
   width: 100%;
   max-width: 578px;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
 `;
 
 const CardTitle = styled.div`
