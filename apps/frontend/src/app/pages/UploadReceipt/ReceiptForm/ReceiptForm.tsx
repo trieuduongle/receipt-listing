@@ -67,7 +67,7 @@ export const ReceiptForm: React.FC<ReceiptFormProps> = ({
   } = useForm<ReceiptFormModel>({
     resolver: joiResolver(schema),
     defaultValues: {
-      description: new Date().toISOString().substring(0, 13),
+      description: new Date().toLocaleString(),
     },
   });
 
@@ -75,7 +75,8 @@ export const ReceiptForm: React.FC<ReceiptFormProps> = ({
 
   useEffect(() => {
     if (uploadedImage) {
-      setValue('title', uploadedImage.name);
+      setValue('title', new Date().toLocaleString());
+      setValue('description', uploadedImage.name);
       clearErrors('title');
     }
   }, [uploadedImage, setValue, clearErrors]);
