@@ -4,7 +4,6 @@ import { ReactNode } from 'react';
 import styled from 'styled-components';
 
 const StyledRightOutlined = styled(RightOutlined)`
-  float: right;
   font-size: 20px;
 `;
 

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { MenuItem } from '~/components';
+import { Ellipsis, MenuItem } from '~/components';
 import { ReceiptModel } from '~/core';
 
 const StyledImageIcon = styled.img`
@@ -8,6 +8,10 @@ const StyledImageIcon = styled.img`
   margin-right: 0.5rem;
   object-fit: cover;
   border-radius: 20%;
+`;
+
+const StyledEllipsis = styled(Ellipsis)`
+  flex: 1;
 `;
 
 export interface ReceiptMenuItemProps {
@@ -25,7 +29,7 @@ export const ReceiptMenuItem: React.FC<ReceiptMenuItemProps> = ({
       icon={<StyledImageIcon src={item.media[0].url} />}
       onClick={() => onClick(item)}
     >
-      <div className="w-100">{item.title}</div>
+      <StyledEllipsis text={item.title} />
     </MenuItem>
   );
 };
