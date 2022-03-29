@@ -21,9 +21,11 @@ export const ReceiptMenuItem: React.FC<ReceiptMenuItemProps> = ({
 }) => {
   return (
     <MenuItem
-      title={item.title}
+      title=""
       icon={<StyledImageIcon src={item.media[0].url} />}
       onClick={() => onClick(item)}
-    />
+    >
+      <div className="w-100">{item.title}</div>
+    </MenuItem>
   );
 };
