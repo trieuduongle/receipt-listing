@@ -3,6 +3,7 @@ import { Button, Form, FormProps, Input } from 'antd';
 import Joi from 'joi';
 import { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { SelectImage } from '~/components';
 import { getErrorMessage } from '~/utils';
@@ -23,6 +24,7 @@ const schema = Joi.object<ReceiptFormModel>({
 
 export interface ReceiptFormProps {
   refresh: number;
+  canBack?: boolean;
   submit: (model: ReceiptFormModel) => void;
 }
 
@@ -35,12 +37,25 @@ const StyledForm = styled((props: FormProps) => <Form {...props} />)`
   }
 `;
 
-const SubmitButton = styled(Button)`
+const ActionButtons = styled.div`
   width: 100%;
-  display: block;
+  display: flex;
   margin: 0 auto;
   @media (min-width: 576px) {
     max-width: 300px;
+  }
+
+  > * {
+    flex: 1;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+
+    &:first-child {
+      margin-left: 0;
+    }
+    &:last-child {
+      margin-right: 0;
+    }
   }
 `;
 
@@ -54,6 +69,7 @@ const StyledSelectImage = styled(SelectImage)`
 
 export const ReceiptForm: React.FC<ReceiptFormProps> = ({
   refresh,
+  canBack,
   submit,
 }) => {
   const {
@@ -149,9 +165,16 @@ export const ReceiptForm: React.FC<ReceiptFormProps> = ({
       </Form.Item>
 
       <Form.Item>
-        <SubmitButton size="large" type="primary" htmlType="submit">
-          Submit
-        </SubmitButton>
+        <ActionButtons>
+          {canBack ? (
+            <Button size="large">
+              <Link to="/main/home">Back</Link>
+            </Button>
+          ) : null}
+          <Button size="large" type="primary" htmlType="submit">
+            Submit
+          </Button>
+        </ActionButtons>
       </Form.Item>
     </StyledForm>
   );

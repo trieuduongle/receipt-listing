@@ -28,6 +28,7 @@ export const UploadReceipt = () => {
     useUploadMediaMutation();
   const [createReceipt, { isLoading: isCreateReceiptLoading }] =
     useCreateReceiptMutation();
+  const [canBack, setCanBack] = useState(false);
   const isLoading =
     isGeneratePresignUrlLoading ||
     isUploadMediaLoading ||
@@ -66,6 +67,7 @@ export const UploadReceipt = () => {
           });
 
           setRefresh((value) => value + 1);
+          setCanBack(true);
         }
       }
     }
@@ -77,7 +79,11 @@ export const UploadReceipt = () => {
 
       <PageContent>
         <Spin spinning={isLoading}>
-          <ReceiptForm refresh={refresh} submit={handleSubmit} />
+          <ReceiptForm
+            refresh={refresh}
+            canBack={canBack}
+            submit={handleSubmit}
+          />
         </Spin>
       </PageContent>
     </>
